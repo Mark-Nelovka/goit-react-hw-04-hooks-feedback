@@ -10,16 +10,16 @@ function App() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const onIncrementGood = () => {
-    setGood((prevState) => prevState + 1);
-  };
-
-  const onIncrementNeutral = () => {
-    setNeutral((prevState) => prevState + 1);
-  };
-
-  const onIncrementBad = () => {
-    setBad((prevState) => prevState + 1);
+  const onIncrement = (data) => {
+    if (data === "good") {
+      setGood((prevState) => prevState + 1);
+      return;
+    } else if (data === "neutral") {
+      setNeutral((prevState) => prevState + 1);
+      return;
+    } else {
+      setBad((prevState) => prevState + 1);
+    }
   };
 
   const countTotalFeedback = (good, neutral, bad) => {
@@ -40,9 +40,8 @@ function App() {
     <div className="App">
       <SectionTitle title={"Please leave feedback"}>
         <FeedbackOptions
-          onIncrementGood={onIncrementGood}
-          onIncrementNeutral={onIncrementNeutral}
-          onIncrementBad={onIncrementBad}
+          onIncrement={onIncrement}
+          options={["good", "neutral", "bad"]}
         />
         {good || neutral || bad ? (
           <div>
